@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<table width="100%" align="center">
+    <tr>
+        <td width="85%">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 99%;
+    outline: 4px solid #FFCC00;  border-radius: 10px;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src='{{url_for("static", filename="img/carousel_1.jpg")}}'
+                             alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="{{url_for('static', filename='img/carousel_2.jpg')}}"
+                             alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="{{url_for('static', filename='img/carousel_3.jpg')}}"
+                             alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </td>
+        <td valign="top">
+
+            {% if loged == True %}
+            <div class="card-body">
+                <div class="card" style="width: 18rem; height: 10rem;">
+                    <h5 class="card-title" align="center" style="margin-top: 5%"><font color="FFCC00">Здравствуйте, {{
+                        username }}!</font></h5>
+                    <p class="card-text" align="center">Ищите и выбирайте лучшие произведения
+                        на книжных полках MyBookShelf!</p></div>
+            </div>
+            {% if admin == True %}
+            <p align="center"><a href="/add_author" class="btn  btn-outline-warning">Добавить писателя</a>
+            <p align="center"><a href="/add_books" class="btn  btn-outline-warning">Добавить книгу</a>
+                {% endif %}
+                {% else %}
+                <div class="card-body">
+                    <div class="card" style="width: 18rem; height: 24rem"><br>
+                        <h5 class="card-title" align="center"><font color="FFCC00">Все еще не с нами?</font></h5>
+            <p class="card-text" align="center" style="padding: 10px">Вступить в сообщество пользователей MyBookShelf -
+                это:
+            <ul>
+                <li>Покупать лучшие произведения мировой литературы первым</li>
+                <li>Оставлять отзывы и делиться мнениями</li>
+                <li>Читать биографии авторов</li>
+            </ul>
+            </p>
+            <p align="center"><a href="/register" class="btn  btn-outline-warning">Зарегистрироваться</a>
+            </p></div>
+            {% endif %}
+
+            </div>
+        </td>
+    </tr>
+</table>
+
+<br><br>
+<div class="d-flex flex-row">
+
+    {% for item in books %}
+    {% if item[0] <= 10 %}
+    <div class="p-2">
+        <div class="card" style="width: 200px; height: 500px">
+            <img class="card-img-top" style="height: 317px" src="static/img/{{item[5]}}" alt="Обложка книги">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <center><a href="/book/{{item[0]}}" style="color: #FFCC00">{{item[1]}}</a></center>
+                </h5>
+                <p class="card-text">
+                <div style="color: #000000">
+                    <center>{{item[2]}}</center>
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% if item[0] % 5 == 0 %}
+</div>
+<div class="d-flex flex-row">
+
+    {% endif %}
+{% endif %}
+    {% endfor %}
+
+
+</div><br><br>
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h1>
+    <center>Авторизация</center>
+</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<form action="" method="post" novalidate class="center">
+
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username }}<br>
+        {% for error in form.username.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password }}<br>
+        {% for error in form.password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    <p>
+    <center>{{ form.submit() }}</center>
+    </p>
+</form>
+<p class="text-warning text-center">У вас еще нет книжной полки? Присоединяйтесь!</p>
+<p>
+<center><a href="{{ url_for('register') }}" style="color: #000000">Регистрация</a></center></p>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h2>
+    <center>Писатели</center>
+</h2>
+<div class="d-flex flex-row">
+
+    {% for item in authors %}
+    {% if item != None %}
+    <div class="p-2">
+
+        <div class="card" style="width: 200px; height: 385px">
+            <img class="card-img-top" style="height: 300px" src="{{url_for('static', filename='img/'+item[2])}}"
+                 alt="Фотография">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <center><a href="/author/{{item[0]}}" style="color: #FFCC00">{{ item[1] }}</a></center>
+                </h5>
+            </div>
+        </div>
+    </div>
+    {% if item[0] % 5 == 0 %}
+</div>
+<div class="d-flex flex-row">
+
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+
+</div><br><br>
+
+{% endblock %}

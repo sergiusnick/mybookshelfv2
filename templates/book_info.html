@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if alert == 1 %}
+<br>
+<div class="alert alert-success" role="alert">
+    Книга "{{ book[1] }}" успешна добавлена в корзину
+</div>
+{% endif %}
+{% if alert == 2 %}
+<br>
+<div class="alert alert-danger" role="alert">
+    Извините, но книги "{{ book[1] }}" не оказалось на складе
+</div>
+{% endif %}
+
+<br>
+<div class="jumbotron  text-white bg-warning mb-3">
+    <h1 class="display-4">{{ book[1] }}</h1>
+    {% if author == False %}
+    <p class="lead"><font size="5"><b>{{ book[2] }}</b></font></p>
+    {% else %}
+    <p class="lead"><font size="5"><b><a href="/author/{{author}}" style="color: #000000">{{book[2]}}</a></b></font></p>
+    {% endif %}
+    <hr class="my-4">
+    <table>
+        <tr>
+            <td width="30%">
+                <div><img src="{{url_for('static', filename='img/'+book[5])}}"
+                          style="border: solid 5px white; width: 100%">
+                </div>
+                <br>
+                <div><font size="5">
+                    <center><b>Цена: </b>{{ book[8] }} рублей</center>
+                </font></div>
+                <br>
+                <center><a href="/book/{{book[0]}}/buy" class="btn btn-outline-light btn-lg">Добавить в корзину</a>
+                </center>
+                {% if admin == True %}
+                <br>
+                <div>
+                    <center>На складе:</center>
+                </div>
+                <center>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-light btn-lg" disabled> {{book[7]}}</button>
+                        <a href="/add_admin/{{book[0]}}" class="btn btn-light btn-lg">+</a>
+                    </div>
+                    <br><br>
+                    <div>
+                        <a href="/delete_admin/{{book[0]}}" class="btn btn-outline-light">Удалить книгу</a>
+                    </div>
+                </center>
+                {% endif %}
+            </td>
+            <td valign="top" style=" padding-left: 20px;">
+                <p><font size="4"><b>Год издания: </b>{{ book[3] }}</font></p>
+                <p><font size="4"><b>Число страниц: </b>{{ book[4] }}</font></p>
+                <p style=" margin: 0 0 0 20px;"><font size="4"><b>{{ book[6] }}</b></font></p>
+
+            </td>
+        </tr>
+    </table>
+    <div align="right"><a href="/index" class="btn btn-outline-light btn-lg">На главную</a></div>
+</div>
+
+{% if loged == True %}
+<br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Поделитесь своим мнением об этой книге, напишите рецензию!</h5>
+        <p class="card-text">Ваш отзыв о книге увидят тысячи пользователей MyBookShelf</p>
+        <a href="/book/{{book[0]}}/comment" class="btn btn-outline-warning btn-sm">Добавить комментарий</a>
+
+    </div>
+</div>
+<br>
+{% for item in comments %}
+<div class="p-3 mb-2 bg-warning text-white"><h2>{{item[3]}}</h2>
+    <div>{{item[0]}} {{item[2]}}</div>
+    <h1></h1>
+    <div class="p-3 mb-2 bg-white text-dark">
+
+        <div>{{item[4]}}</div>
+
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+<div class="alert alert-warning" role="alert">
+    Чтобы просматривать и оставлять рецензии, <a href="/login" class="alert-link">войдите</a>.
+</div>
+{% endif %}
+
+{% endblock %}

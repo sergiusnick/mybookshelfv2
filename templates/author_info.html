@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br>
+
+<div class="jumbotron  text-white bg-warning mb-3">
+    <h1 class="display-4">{{ author[1] }}</h1>
+
+    <hr class="my-4">
+    <table>
+        <tr>
+            <td width="30%">
+                <div><img src="{{url_for('static', filename='img/'+author[2])}}"
+                          style="border: solid 5px white; width: 100%">
+                </div>
+                <br>
+            </td>
+            <td valign="top" align="center" style=" padding-left: 20px;">
+
+                <p style=" margin: 0 0 0 20px;"><font size="4"><b>{{ author[3] }}</b></font></p>
+
+            </td>
+        </tr>
+    </table>
+    <div align="right">
+        {% if admin == True %}
+            <a href="/edit_author/{{author[0]}}" class="btn btn-outline-light btn-lg">Редактировать</a>
+        {% endif %}
+        <a href="/index" class="btn btn-outline-light btn-lg">Назад</a></div>
+</div>
+
+{% if loged == True %}
+
+<br>
+<h1>
+    <center>Произведения автора</center>
+</h1>
+<div class="d-flex flex-row">
+
+    {% for item in book %}
+    {% if item != None %}
+    <div class="p-2">
+
+        <div class="card" style="width: 200px; height: 500px">
+            <img class="card-img-top" style="height: 317px" src="{{url_for('static', filename='img/'+item[5])}}"
+                 alt="Обложка книги">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <center><a href="/book/{{item[0]}}" style="color: #FFCC00">{{ item[1] }}</a></center>
+                </h5>
+                <p class="card-text">
+                <div style="color: #000000">
+                    <center>{{item[2]}}</center>
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% if item[0] % 5 == 0 %}
+</div>
+<div class="d-flex flex-row">
+
+
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+
+</div><br><br>
+{% endif %}
+
+{% endblock %}

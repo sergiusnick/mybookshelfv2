@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h1>
+    <center>Добавить писателя</center>
+</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<form action="" method="POST" novalidate enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name }}<br>
+        {% for error in form.name.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+
+    <p>
+        {{ form.picture.label }}<br>
+        {{ form.picture }}<br>
+        {% for error in form.picture.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.bio.label }}<br>
+        {{ form.bio(cols="100", rows="9") }}<br>
+        {% for error in form.bio.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if alert == 1 %}
+<br>
+    <div class="alert alert-success" role="alert">
+  Ваш заказ принят! На почту отправлено письмо с дальнейшими указаниями</div>
+    {% endif %}
+{% if alert == 2 %}
+<br>
+    <div class="alert alert-success" role="alert">
+  Корзина успешно очищена</div>
+    {% endif %}
+
+
+
+    <br><h2>
+    <center>Моя корзина</center>
+</h2>
+<br>
+<div class="d-flex flex-row">
+    {% for item in books %}
+    <div class="p-2">
+
+        <div class="card" style="width: 200px; height: 450px">
+            <img class="card-img-top" style="height: 300px" src="{{url_for('static', filename='img/'+item[5])}}"
+                 alt="Фотография">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <center><a href="/book/{{item[0]}}" style="color: #FFCC00">{{ item[1] }}</a></center>
+                </h5>
+
+                <center>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-warning" disabled> {{books[item]}}</button>
+                        <a href="/delete/{{item[0]}}" class="btn  btn-outline-warning">-</a>
+                        <a href="/add/{{item[0]}}" class="btn  btn-outline-warning">+</a>
+                    </div>
+                </center>
+
+            </div>
+        </div>
+    </div>
+
+    {% if item[0] % 5 == 0 %}
+</div>
+<div class="d-flex flex-row">
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+{% if disabled == True %}
+<p align="right"><button type="button" class="btn btn-warning btn-primary btn-lg" disabled> Заказать</button>
+    <button type="button" class="btn btn-warning btn-primary btn-lg" disabled> Очистить корзину</button>
+</p>
+{% else %}
+<p align="right"><a href="/order" class="btn  btn btn-warning btn-primary btn-lg">Заказать</a>
+    <a href="/delete_all" class="btn btn btn-warning btn-primary btn-lg">Очистить корзину</a>
+</p>
+{% endif %}
+{% endblock %}
